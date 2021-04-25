@@ -11,7 +11,10 @@ func foo() (id int, err error) {
 	defer db.Close()
 	rows, err := db.QueryRow("SELECT id from aaaaa where id=123")
 	defer rows.Close()
-	return rows.Scan(&id), errors.Wrap(sql.ErrNoRows, "foo() sql: data not found")
+	if err != nil {
+		return nil, errors.Wrap(err, "read failed")
+	}
+	return rows.Scan(&id), nil
 }
 
 // 调用层
