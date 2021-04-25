@@ -12,7 +12,7 @@ func foo() (id int, err error) {
 	rows, err := db.QueryRow("SELECT id from aaaaa where id=123")
 	defer rows.Close()
 	if err != nil {
-		return nil, errors.Wrap(err, "read failed")
+		return nil, errors.Wrap(err, "data not found")
 	}
 	return rows.Scan(&id), nil
 }
